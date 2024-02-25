@@ -1,0 +1,135 @@
+
+
+.show-image{
+    display: none;
+}
+
+@media only screen and (min-width : 768px) {
+
+    .accordion-container {
+        margin : 5px;
+    }
+
+    .accordion-button {
+        color       : #444;
+        background  : transparent;
+        cursor      : pointer;
+        padding     : 18px;
+        width       : 100%;
+        border      : none;
+        text-align  : left;
+        outline     : none;
+        font-size   : 1rem;
+        transition  : background-color 0.4s ease;
+        display     : flex;
+        align-items : center;
+    }
+
+    .accordion-button svg {
+        width  : 30px;
+        height : 30px;
+        fill   : gray;
+        margin-right: 7px;
+    }
+
+    .accordion-button.active, .accordion-button:hover {
+        /*background-color: #ccc;*/
+    }
+
+    .panel {
+        padding          : 0 18px;
+        background-color : white;
+        max-height       : 0;
+        overflow         : hidden;
+        transition       : 0.3s;
+    }
+
+    .accordion-item .image-container {
+        /*width: 50px;*/
+        /*height: 50x;*/
+        display : none;
+    }
+
+    .accordion-item .image-container img {
+        width  : 50px;
+        height : 50x;
+    }
+
+    .accordion-container {
+        display : flex;
+    }
+
+    .show-image {
+        width           : 50%;
+        display         : flex;
+        justify-content : center;
+    }
+
+    .acc {
+        width : 50%;
+    }
+
+    .show-image img {
+        max-height : 400px;
+    }
+
+    .accordion-button:after {
+        content          : "";
+        background-image : url('data:image/svg+xml,<%3Fxml version="1.0" encoding="utf-8"%3F><!-- Generator: Adobe Illustrator 25.4.1, SVG Export Plug-In . SVG Version: 6.00 Build 0) --><svg version="1.1" id="Layer_1" xmlns:v="https://vecta.io/nano" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve"><path d="M328.5,210.8l-97.9-97.9c-8.3-8.3-21.8-8.3-30.1,0c-8.4,8.3-8.4,21.8-0.1,30.2l0.1,0.1l98.1,97.7c8.4,8.3,8.4,21.8,0.1,30.2l-0.1,0.1l-98.1,97.7c-8.4,8.3-8.4,21.8-0.1,30.2s21.8,8.4,30.2,0.1l97.9-97.9C353.5,276.2,353.5,235.8,328.5,210.8L328.5,210.8z"/></svg>');
+        width            : 25px;
+        height           : 25px;
+        transform        : rotate(90deg);
+        position         : absolute;
+        right            : 20px;
+        opacity          : 0.4;
+        transition       : 0.3s;
+        transform-origin : center;
+    }
+
+    .accordion-button.active:after {
+        transform : rotate(180deg);
+    }
+
+    .accordion-button:before {
+        content       : "";
+        width         : 100%;
+        height        : 100%;
+        position      : absolute;
+        background    : #6b6bff;
+        top           : 0;
+        left          : 0;
+        z-index       : 0;
+        opacity       : 0;
+        border-radius : 20px;
+        transform     : scale(0.95);
+        transition    : 0.3s;
+    }
+
+    .accordion-button.active:before {
+        opacity   : 0.1;
+        transform : scale(1);
+    }
+
+    .accordion-button.active ~ .panel {
+        padding-bottom : 40px;
+    }
+
+    .accordion-item {
+        position : relative;
+    }
+
+    .accordion-button.active svg {
+        fill : #6b6bff;
+    }
+
+    .accordion-container h2 {
+        font-size: 2.3rem;
+        margin: 20px 0;
+        font-weight: 600;
+        padding: 0 20px;
+    }
+
+    .accordion-container .order-1{ order: 1 }
+    .accordion-container .order-2{ order: 2 }
+    .accordion-container .order-3{ order: 3 }
+}
