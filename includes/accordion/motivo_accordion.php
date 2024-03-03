@@ -37,7 +37,7 @@ class motivo_accordion extends Widget_Base
      */
     public function get_title()
     {
-        return esc_html__( 'Listtt', 'elementor-list-widget' );
+        return esc_html__( 'Motivo Accordion', 'elementor-list-widget' );
     }
 
     /**
@@ -51,7 +51,7 @@ class motivo_accordion extends Widget_Base
      */
     public function get_icon()
     {
-        return 'eicon-bullet-list';
+        return 'eicon-toggle';
     }
 
     /**
@@ -117,33 +117,46 @@ class motivo_accordion extends Widget_Base
 
 
         $this->add_control(
-            'header',
+            'accordion_title',
             [
-                'label'       => esc_html__( 'Header Title', 'elementor-list-widget' ),
+                'label'       => esc_html__( 'Accordion Title', 'elementor-list-widget' ),
                 'type'        => \Elementor\Controls_Manager::TEXT,
-                'placeholder' => esc_html__( 'This is header', 'elementor-list-widget' ),
-                'default'     => esc_html__( 'This is header', 'elementor-list-widget' ),
+                'placeholder' => esc_html__( '', 'elementor-list-widget' ),
+                'default'     => esc_html__( '', 'elementor-list-widget' ),
                 'label_block' => true,
                 'dynamic'     => [
                     'active' => true,
                 ],
             ]
         );
+
         $this->add_control(
             'image_origin',
             [
-                'label' => esc_html__( 'Image Position', 'textdomain' ),
-                'type' => \Elementor\Controls_Manager::SELECT,
+                'label'   => esc_html__( 'Image Position', 'motivo_title' ),
+                'type'    => \Elementor\Controls_Manager::SELECT,
                 'default' => 'left',
                 'options' => [
-                    'left' => esc_html__( 'Left', 'textdomain' ),
-                    'right' => esc_html__( 'Right', 'textdomain' ),
-                ],
-                'selectors' => [
-                    '{{WRAPPER}} .your-class' => 'border-style: {{VALUE}};',
+                    'left'  => esc_html__( 'Left', 'motivo_title' ),
+                    'right' => esc_html__( 'Right', 'motivo_title' ),
                 ],
             ]
         );
+
+
+        $this->add_control(
+            'color',
+            [
+                'label'     => esc_html__( 'Color Scheme', 'motivo_title' ),
+                'type'      => \Elementor\Controls_Manager::COLOR,
+                'default'   =>  '#6b6bff',
+                'selectors' => [
+                    '{{WRAPPER}} .motivo-accordion-container .accordion-button.active svg ' => 'fill: {{VALUE}}',
+                    '{{WRAPPER}} .motivo-accordion-container .accordion-button:before'      => 'background: {{VALUE}}',
+                ],
+            ]
+        );
+
 
         /* Start repeater */
 
@@ -152,28 +165,9 @@ class motivo_accordion extends Widget_Base
         $repeater->add_control(
             'accordion_text',
             [
-                'label' => __('Accordion Text', 'your-text-domain'),
-                'type' => Controls_Manager::TEXT,
-                'default' => __('Accordion Title', 'your-text-domain'),
-                'label_block' => true,
-            ]
-        );
-
-        $repeater->add_control(
-            'accordion_content',
-            [
-                'label' => __('Accordion Content', 'your-text-domain'),
-                'type' => Controls_Manager::WYSIWYG,
-                'default' => __('Accordion Content goes here', 'your-text-domain'),
-                'show_label' => false,
-            ]
-        );
-
-        $repeater->add_control(
-            'accordion_image',
-            [
-                'label' => __('Accordion Image', 'your-text-domain'),
-                'type' => Controls_Manager::MEDIA,
+                'label'       => __( 'Accordion Text', 'your-text-domain' ),
+                'type'        => Controls_Manager::TEXT,
+                'default'     => __( '', 'your-text-domain' ),
                 'label_block' => true,
             ]
         );
@@ -181,19 +175,38 @@ class motivo_accordion extends Widget_Base
         $repeater->add_control(
             'accordion_svg',
             [
-                'label' => __('Accordion SVG', 'your-text-domain'),
-                'type' => Controls_Manager::TEXT,
-                'default' => __('Accordion SVG code', 'your-text-domain'),
+                'label'       => __( 'Accordion SVG', 'your-text-domain' ),
+                'type'        => Controls_Manager::TEXT,
+                'default'     => __( '', 'your-text-domain' ),
                 'label_block' => true,
+            ]
+        );
+
+        $repeater->add_control(
+            'accordion_image',
+            [
+                'label'       => __( 'Accordion Image', 'your-text-domain' ),
+                'type'        => Controls_Manager::MEDIA,
+                'label_block' => true,
+            ]
+        );
+
+        $repeater->add_control(
+            'accordion_content',
+            [
+                'label'      => __( 'Accordion Content', 'your-text-domain' ),
+                'type'       => Controls_Manager::WYSIWYG,
+                'default'    => __( '', 'your-text-domain' ),
+                'show_label' => false,
             ]
         );
 
         $this->add_control(
             'accordions',
             [
-                'label' => __('Accordions', 'your-text-domain'),
-                'type' => Controls_Manager::REPEATER,
-                'fields' => $repeater->get_controls(),
+                'label'       => __( 'Accordions', 'your-text-domain' ),
+                'type'        => Controls_Manager::REPEATER,
+                'fields'      => $repeater->get_controls(),
                 'title_field' => '{{{ accordion_text }}}',
             ]
         );
@@ -213,30 +226,25 @@ class motivo_accordion extends Widget_Base
      */
     protected function render()
     {
-        $settings = $this->get_settings_for_display();
-        $header_title = $settings['header'];
-        $image_origin = $settings['image_origin'];
+        $settings        = $this->get_settings_for_display();
+        $accordion_title = $settings[ 'accordion_title' ];
+        $image_origin    = $settings[ 'image_origin' ];
 
-//        $this->add_render_attribute( 'list', 'class', 'elementor-list-widget' );
         ?>
-        <div class="accordion-container">
+        <div class="motivo-accordion-container">
 
-            <div class="show-image   <?php echo $image_origin === 'left' ? 'order-1' : 'order-3'  ?> "></div>
+            <div class="show-image   <?php echo $image_origin === 'left' ? 'order-1' : 'order-3' ?> "></div>
 
             <div class="acc order-2">
-                <!--                <h2> --><?php //$this->print_render_attribute_string( 'header' ); ?><!-- </h2>-->
-                <h2> <?php echo $settings['header'] ?> </h2>
+
+                <h2> <?php echo $accordion_title ?> </h2>
 
                 <?php
                 foreach ( $settings[ 'accordions' ] as $index => $item ) {
-//                    $repeater_setting_key = $this->get_repeater_setting_key( 'text', 'list_items', $index );
-//                    $this->add_render_attribute( $repeater_setting_key, 'class', 'elementor-list-widget-text' );
-//                    $this->add_inline_editing_attributes( $repeater_setting_key );
-
-                    $accordion_text = $item['accordion_text'];
-                    $accordion_content = $item['accordion_content'];
-                    $accordion_image = $item['accordion_image']['url']; // Use ['url'] to get the image URL
-                    $accordion_svg = $item['accordion_svg'];
+                    $accordion_text    = $item[ 'accordion_text' ];
+                    $accordion_content = $item[ 'accordion_content' ];
+                    $accordion_image   = $item[ 'accordion_image' ][ 'url' ]; // Use ['url'] to get the image URL
+                    $accordion_svg     = $item[ 'accordion_svg' ];
                     ?>
 
                     <div class="accordion-item">
@@ -261,7 +269,5 @@ class motivo_accordion extends Widget_Base
 
         <?php
     }
-
-
 
 }

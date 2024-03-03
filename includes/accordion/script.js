@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
-    var containers = document.getElementsByClassName("accordion-container");
+    var containers = document.getElementsByClassName("motivo-accordion-container");
 
     // Iterate over each accordion container
     for (var c = 0; c < containers.length; c++) {
@@ -30,13 +30,13 @@ document.addEventListener("DOMContentLoaded", function() {
                 var imageSrc = this.previousElementSibling.querySelector('img').src;
 
                 // Update the .show-image container's content
-                var showImageContainer = this.closest('.accordion-container').querySelector('.show-image');
+                var showImageContainer = this.closest('.motivo-accordion-container').querySelector('.show-image');
                 showImageContainer.innerHTML = '<img src="' + imageSrc + '" alt="Accordion Image"/>';
 
                 var isOpen = panel.style.maxHeight;
 
                 // Close all panels in this accordion container
-                var container = this.closest('.accordion-container');
+                var container = this.closest('.motivo-accordion-container');
                 var allPanels = container.querySelectorAll('.panel');
                 for (var j = 0; j < allPanels.length; j++) {
                     allPanels[j].style.maxHeight = null;

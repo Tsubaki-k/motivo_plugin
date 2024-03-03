@@ -4,7 +4,7 @@
  * Plugin Name: Motivo-core
  * Plugin URI: https://www.your-site.com/
  * Description: This is features for motivo
- * Version: 0.1
+ * Version: 1.0
  * Author: Tsubaki
  * Author URI: https://t.me/Tsubakii_chan
  **/
