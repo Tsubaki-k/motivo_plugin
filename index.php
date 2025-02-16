@@ -38,12 +38,29 @@ add_action( 'elementor/widgets/register', 'register_oembed_widget' );
 
 
 
-function my_plugin_frontend_scripts() {
-    wp_register_script( 'accordion_script', plugins_url( 'includes/accordion/script.js', __FILE__ ) );
-    wp_enqueue_script( 'accordion_script' );
-}
-add_action( 'elementor/frontend/after_register_scripts', 'my_plugin_frontend_scripts' );
+//function my_plugin_frontend_scripts() {
+//    wp_register_script( 'accordion_script', plugins_url( '', __FILE__ ), [], '1.0', true );
+//    wp_enqueue_script( 'accordion_script' );
+//}
+//add_action( 'elementor/frontend/after_register_scripts', 'my_plugin_frontend_scripts' );
 
+function motivo_script_registering( )
+{
+    wp_register_script(
+        'my-custom-widget-script',
+        plugin_dir_url(__FILE__) . 'includes/accordion/script.js',
+        ['jquery'], // Dependencies (if any)
+        '1.0.0',
+        true // Load in footer
+    );
+
+    wp_enqueue_script('my-custom-widget-script');
+}
+
+add_action('elementor/frontend/after_register_scripts', 'motivo_script_registering');
+add_action('elementor/frontend/after_enqueue_scripts', 'motivo_script_registering');
+add_action('elementor/editor/after_register_scripts', 'motivo_script_registering');
+add_action('elementor/editor/after_enqueue_scripts', 'motivo_script_registering');
 
 function my_plugin_frontend_stylesheets() {
     wp_register_style( 'accordion_style', plugins_url( 'includes/accordion/style.css', __FILE__ ) );

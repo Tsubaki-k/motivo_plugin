@@ -270,4 +270,40 @@ class motivo_accordion extends Widget_Base
         <?php
     }
 
+
+    public function get_script_depends() {
+        return ['my-custom-widget-script']; // Script handle from wp_register_script()
+    }
+
+    protected function content_template()
+    {
+        ?>
+        <div class="motivo-accordion-container">
+            <div class="show-image {{ settings.image_origin === 'left' ? 'order-1' : 'order-3' }}"></div>
+
+            <div class="acc order-2">
+                <h2>{{{ settings.accordion_title }}}</h2>
+
+                <# if ( settings.accordions ) { #>
+                <# _.each( settings.accordions, function( item ) { #>
+                <div class="accordion-item">
+                    <div class="image-container">
+                        <img src="{{ item.accordion_image.url }}" alt="">
+                    </div>
+                    <button class="accordion-button">
+                        {{{ item.accordion_svg }}}
+                        {{{ item.accordion_text }}}
+                    </button>
+                    <div class="panel">
+                        {{{ item.accordion_content }}}
+                    </div>
+                </div>
+                <# }); #>
+                <# } #>
+            </div>
+        </div>
+        <?php
+    }
+
+
 }

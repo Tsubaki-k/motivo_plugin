@@ -1,75 +1,111 @@
-document.addEventListener("DOMContentLoaded", function() {
-    var containers = document.getElementsByClassName("motivo-accordion-container");
+function initializeMotivoAccordion($scope = document) {
+    console.log("Motivo Accordion Initialized"); // Debugging
 
-    // Iterate over each accordion container
-    for (var c = 0; c < containers.length; c++) {
-        var acc = containers[c].getElementsByClassName("accordion-button");
-        var allClosed = true; // Variable to track if all accordions are closed
+    var containers = $scope.querySelectorAll(".motivo-accordion-container");
 
-        // Check if any accordion in this container is initially open
-        for (var i = 0; i < acc.length; i++) {
-            var panel = acc[i].nextElementSibling;
+    containers.forEach(container => {
+        var acc = container.querySelectorAll(".accordion-button");
+
+        // Check if any accordion is already open
+        var allClosed = true;
+        acc.forEach(button => {
+            var panel = button.nextElementSibling;
             if (panel.style.maxHeight) {
-                allClosed = false; // At least one accordion in this container is open
-                break;
+                allClosed = false;
+            }
+        });
+
+        // If all are closed, set the first one as active
+        if (allClosed && acc.length > 0) {
+            var firstButton = acc[0];
+            var firstPanel = firstButton.nextElementSibling;
+            var firstImage = firstButton.previousElementSibling?.querySelector("img");
+
+            firstButton.classList.add("active");
+            firstPanel.style.maxHeight = firstPanel.scrollHeight + "px";
+
+            if (firstImage) {
+                var firstImageSrc = firstImage.src;
+                var showImageContainer = container.querySelector(".show-image");
+                if (showImageContainer) {
+                    showImageContainer.innerHTML = `<img src="${firstImageSrc}" alt="Accordion Image"/>`;
+                }
             }
         }
 
-        // If all accordions in this container are closed, show the image of the first accordion
-        if (allClosed) {
-            var firstImageSrc = containers[c].querySelector('.accordion-item .image-container img').src;
-            var showImageContainer = containers[c].querySelector('.show-image');
-            showImageContainer.innerHTML = '<img src="' + firstImageSrc + '" alt="Accordion Image"/>';
+        // Remove previous event listeners to avoid duplication
+        container.removeEventListener("click", handleAccordionClick);
+        container.addEventListener("click", handleAccordionClick);
+    });
+}
+
+function handleAccordionClick(event) {
+    var button = event.target.closest(".accordion-button");
+    if (!button) return;
+
+    var panel = button.nextElementSibling;
+    var imageContainer = button.previousElementSibling?.querySelector("img");
+
+    if (imageContainer) {
+        var imageSrc = imageContainer.src;
+        var showImageContainer = button.closest(".motivo-accordion-container").querySelector(".show-image");
+        if (showImageContainer) {
+            showImageContainer.innerHTML = `<img src="${imageSrc}" alt="Accordion Image"/>`;
         }
+    }
 
-        // Add click event listeners to accordion buttons in this container
-        for (var i = 0; i < acc.length; i++) {
-            acc[i].addEventListener("click", function() {
-                // Find the panel and image associated with the clicked button
-                var panel = this.nextElementSibling;
-                var imageSrc = this.previousElementSibling.querySelector('img').src;
+    var isOpen = panel.style.maxHeight;
+    var container = button.closest(".motivo-accordion-container");
+    var allPanels = container.querySelectorAll(".panel");
+    var allButtons = container.querySelectorAll(".accordion-button");
 
-                // Update the .show-image container's content
-                var showImageContainer = this.closest('.motivo-accordion-container').querySelector('.show-image');
-                showImageContainer.innerHTML = '<img src="' + imageSrc + '" alt="Accordion Image"/>';
+    // Close all panels
+    allPanels.forEach(p => (p.style.maxHeight = null));
+    allButtons.forEach(b => b.classList.remove("active"));
 
-                var isOpen = panel.style.maxHeight;
+    // Toggle current panel
+    if (!isOpen) {
+        panel.style.maxHeight = panel.scrollHeight + "px";
+        button.classList.add("active");
+    }
+}
 
-                // Close all panels in this accordion container
-                var container = this.closest('.motivo-accordion-container');
-                var allPanels = container.querySelectorAll('.panel');
-                for (var j = 0; j < allPanels.length; j++) {
-                    allPanels[j].style.maxHeight = null;
-                }
+// ✅ Ensure it runs on normal page load
+document.addEventListener("DOMContentLoaded", function () {
+    console.log("DOMContentLoaded fired");
+    initializeMotivoAccordion();
+});
 
-                // Open this panel if it was previously closed
-                if (!isOpen) {
-                    panel.style.maxHeight = panel.scrollHeight + "px";
-                }
+// ✅ Ensure it runs inside Elementor’s frontend
+jQuery(window).on("elementor/frontend/init", function () {
+    console.log("Elementor Frontend Init Fired");
 
-                // Remove "active" class from all buttons
-                var allButtons = container.querySelectorAll('.accordion-button');
-                for (var k = 0; k < allButtons.length; k++) {
-                    allButtons[k].classList.remove('active');
-                }
+    elementorFrontend.hooks.addAction("frontend/element_ready/global", function ($scope) {
+        initializeMotivoAccordion($scope[0]);
+    });
 
-                // Add "active" class to the clicked button
-                this.classList.add('active');
+    if (window.elementorFrontend.isEditMode()) {
+        console.log("Elementor Editor Mode Detected");
+        initializeMotivoAccordion(document);
 
-                // Check if all panels are closed and remove "active" class if they are
-                var allClosed = true;
-                for (var j = 0; j < allPanels.length; j++) {
-                    if (allPanels[j].style.maxHeight) {
-                        allClosed = false;
-                        break;
-                    }
-                }
-                if (allClosed) {
-                    for (var k = 0; k < allButtons.length; k++) {
-                        allButtons[k].classList.remove('active');
-                    }
-                }
-            });
-        }
+        elementor.channels.editor.on("change", function () {
+            console.log("Elementor Change Event Fired");
+            setTimeout(() => initializeMotivoAccordion(document), 200);
+        });
+
+        elementor.channels.editor.on("widget:added", function () {
+            console.log("Elementor Widget Added Event Fired");
+            setTimeout(() => initializeMotivoAccordion(document), 200);
+        });
+
+        elementor.hooks.addAction("panel/open_editor", function () {
+            console.log("Elementor Panel Opened Event Fired");
+            setTimeout(() => initializeMotivoAccordion(document), 200);
+        });
+
+        elementorFrontend.hooks.addAction("frontend/element_ready/widget", function () {
+            console.log("Elementor Frontend Ready Event Fired");
+            setTimeout(() => initializeMotivoAccordion(document), 200);
+        });
     }
 });
