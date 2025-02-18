@@ -79,7 +79,7 @@ class motivo_accordion extends Widget_Base
      */
     public function get_categories()
     {
-        return [ 'layout' ];
+        return [ 'basic' ];
     }
 
     /**

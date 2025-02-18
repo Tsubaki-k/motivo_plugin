@@ -4,16 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f2bac1af-65f7-4b95-84d2-bfb36992d706" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/motivo.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/motivo_plugin.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/functions.php" beforeDir="false" afterPath="$PROJECT_DIR$/functions.php" afterDir="false" />
+    <list default="true" id="f2bac1af-65f7-4b95-84d2-bfb36992d706" name="Changes" comment="fix(el-widget): JS loading in elementor editor">
+      <change afterPath="$PROJECT_DIR$/demo.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/includes/accordion/motivo_accordion.php" beforeDir="false" afterPath="$PROJECT_DIR$/includes/accordion/motivo_accordion.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/includes/accordion/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/includes/accordion/script.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/includes/accordion/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/includes/accordion/style.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -37,11 +34,14 @@
       <path value="$PROJECT_DIR$/../../.." />
     </include_path>
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "customColor": "",
-  "associatedIndex": 6
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 6
+}</component>
   <component name="ProjectId" id="2t5A9q8bL4J9WaU98MOnJXboQ3A" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -51,7 +51,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "C:/wamp64/www/wordpress",
+    "last_opened_file_path": "C:/wamp64/www/wordpress/wp-content/plugins/motivo_plugin",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -60,6 +60,11 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\wamp64\www\wordpress\wp-content\plugins\motivo_plugin" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -76,11 +81,25 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1739631413551</updated>
-      <workItem from="1739631414821" duration="10198000" />
+      <workItem from="1739631414821" duration="12246000" />
+      <workItem from="1739857996295" duration="3558000" />
     </task>
+    <task id="LOCAL-00001" summary="fix(el-widget): JS loading in elementor editor">
+      <option name="closed" value="true" />
+      <created>1739710262855</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1739710262855</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="fix(el-widget): JS loading in elementor editor" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix(el-widget): JS loading in elementor editor" />
   </component>
 </project>
