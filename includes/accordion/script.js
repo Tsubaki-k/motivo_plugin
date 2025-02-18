@@ -1,5 +1,5 @@
 function initializeMotivoAccordion($scope = document) {
-    console.log("Motivo Accordion Initialized"); // Debugging
+    // console.log("Motivo Accordion Initialized"); // Debugging
 
     var containers = $scope.querySelectorAll(".motivo-accordion-container");
 
